@@ -1,7 +1,6 @@
 """数据与命令行测试。"""
 from __future__ import annotations
 
-import numpy as np
 import pytest
 
 from kairos_vol.cli import main
@@ -76,3 +75,16 @@ def test_cli_calibrate(tmp_path, capsys):
 
     assert main(["surface", "--csv", str(path), "--t", "1.0"]) == 0
     assert "T\\k" in capsys.readouterr().out
+
+
+def test_cli_version_and_top_level_help(capsys):
+    with pytest.raises(SystemExit) as exc:
+        main(["--version"])
+    assert exc.value.code == 0
+    assert capsys.readouterr().out.startswith("kairos-vol ")
+
+    with pytest.raises(SystemExit) as exc:
+        main(["--help"])
+    assert exc.value.code == 0
+    out = capsys.readouterr().out
+    assert "{demo,price,iv,calibrate,surface}" in out

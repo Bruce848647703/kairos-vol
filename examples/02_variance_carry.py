@@ -4,7 +4,6 @@
 """
 from __future__ import annotations
 
-import numpy as np
 
 from kairos_vol.data import synthetic_ssvi_quotes
 from kairos_vol.localvol import dupire_local_vol

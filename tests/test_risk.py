@@ -1,7 +1,6 @@
 """局部波动率、方差互换与 PnL 归因测试。"""
 from __future__ import annotations
 
-import math
 
 import numpy as np
 import pytest

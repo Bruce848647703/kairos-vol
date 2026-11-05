@@ -140,7 +140,6 @@ def black_scholes(
     if vol < 0:
         raise ValueError(f"vol 不能为负，收到 {vol!r}")
 
-    carry = math.exp(-dividend * maturity)
     discount = math.exp(-rate * maturity)
     forward = spot * math.exp((rate - dividend) * maturity)
     res = black76(forward, strike, maturity, vol, discount, kind)

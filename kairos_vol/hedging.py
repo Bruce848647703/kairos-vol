@@ -34,7 +34,6 @@ def explain_pnl(
     p1 = black_scholes(spot1, strike, t1, rate, iv1, dividend, kind)
 
     ds = float(spot1) - float(spot0)
-    dt = float(t1) - float(t0)
 
     delta_pnl = p0["delta"] * ds
     gamma_pnl = 0.5 * p0["gamma"] * ds * ds

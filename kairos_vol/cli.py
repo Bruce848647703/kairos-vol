@@ -7,6 +7,7 @@ from typing import List, Optional
 
 import numpy as np
 
+from . import __version__
 from .core import black76, black_scholes
 from .implied import implied_vol
 from .ssvi import SSVISurface
@@ -17,6 +18,7 @@ def _build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="kairos-vol",
         description="波动率曲面研究：SVI/SSVI 校准、无套利检验、Dupire 局部波动率、方差互换。")
+    parser.add_argument("--version", action="version", version=f"kairos-vol {__version__}")
     sub = parser.add_subparsers(dest="command")
 
     sub.add_parser("demo", help="合成曲面 -> 校准 -> 体检 -> 方差互换（默认）")
@@ -192,10 +194,12 @@ def _cmd_surface(args: argparse.Namespace) -> int:
 def main(argv: Optional[List[str]] = None) -> int:
     argv_list = list(sys.argv[1:] if argv is None else argv)
     parser = _build_parser()
-    if not argv_list or argv_list[0].startswith("-"):
-        args = parser.parse_args(["demo"] + argv_list)
-    else:
-        args = parser.parse_args(argv_list)
+    if not argv_list:
+        argv_list = ["demo"]
+    elif argv_list[0] not in ("-h", "--help", "--version") and argv_list[0].startswith("-"):
+        # 无子命令时默认跑 demo；但 -h/--help/--version 必须留给顶层解析器
+        argv_list = ["demo"] + argv_list
+    args = parser.parse_args(argv_list)
     command = args.command or "demo"
     return {
         "demo": _cmd_demo,

@@ -5,7 +5,7 @@
 > **从报价到波动率交易的完整链路**：SVI 逐期限校准 → SSVI 全局参数化 → 无套利体检 →
 > Dupire 局部波动率 → 方差互换与 carry → 期权 PnL 归因。
 
-零第三方依赖（`numpy` + 标准库），57 个测试 + GitHub Actions CI，固定随机种子可复现。
+零第三方依赖（`numpy` + 标准库），58 个测试 + GitHub Actions CI，固定随机种子可复现。
 
 ---
 
@@ -191,7 +191,7 @@ kairos_vol/
 ├── hedging.py      PnL 归因
 ├── data.py         合成报价 / CSV
 └── cli.py          命令行
-tests/              57 个测试
+tests/              58 个测试
 examples/           4 个可运行示例（含绘图）
 ```
 
